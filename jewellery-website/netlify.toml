@@ -1,18 +1,18 @@
 # ── Netlify configuration ──────────────────────────────────────────────────────
 
 [build]
-  # Build command (runs from the repo root; Netlify sees this file in jewellery-website/)
+  # Base directory — where package.json lives (relative to repo root)
+  base    = "jewellery-website"
+  # Build command — runs inside base directory
   command = "npm run build"
-  # Publish directory relative to this file's location
+  # Publish directory — relative to base directory
   publish = "dist"
 
 [build.environment]
   NODE_VERSION = "20"
 
 # ── SPA routing fix ────────────────────────────────────────────────────────────
-# Without this, refreshing any sub-page (e.g. /shop) returns a 404 on Netlify.
-# This redirect sends every request that doesn't match a static file back to
-# index.html so React Router can handle it client-side.
+# Sends every URL to index.html so React Router handles navigation
 [[redirects]]
   from   = "/*"
   to     = "/index.html"
@@ -27,7 +27,6 @@
     Referrer-Policy        = "strict-origin-when-cross-origin"
     Permissions-Policy     = "camera=(), microphone=(), geolocation=()"
 
-# Cache immutable hashed assets (Vite fingerprints JS/CSS filenames)
 [[headers]]
   for = "/assets/*"
   [headers.values]
