@@ -1,0 +1,171 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Lato:wght@300;400;700&display=swap');
+
+/* ── CSS Variables ── */
+:root {
+  --gold: #c9a84c;
+  --gold-light: #e8c97a;
+  --gold-dark: #9a7830;
+  --cream: #fdf8f0;
+  --white: #ffffff;
+  --charcoal: #2c2c2c;
+  --gray: #6b6b6b;
+  --gray-light: #f5f5f5;
+  --border: #e8e0d0;
+
+  --font-serif: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Lato', 'Helvetica Neue', Arial, sans-serif;
+
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.16);
+
+  --transition: 0.3s ease;
+  --radius: 4px;
+}
+
+/* ── Reset ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--white);
+  color: var(--charcoal);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: var(--font-sans);
+}
+
+/* ── Utility Classes ── */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 600;
+  color: var(--charcoal);
+  text-align: center;
+  margin-bottom: 12px;
+}
+
+.section-subtitle {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  color: var(--gray);
+  text-align: center;
+  font-weight: 300;
+  letter-spacing: 0.04em;
+  margin-bottom: 48px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.divider::before,
+.divider::after {
+  content: '';
+  width: 60px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.divider-diamond {
+  width: 8px;
+  height: 8px;
+  background: var(--gold);
+  transform: rotate(45deg);
+}
+
+/* ── Buttons ── */
+.btn {
+  display: inline-block;
+  padding: 12px 32px;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  transition: all var(--transition);
+}
+
+.btn-primary {
+  background: var(--gold);
+  color: var(--white);
+  border: 2px solid var(--gold);
+}
+
+.btn-primary:hover {
+  background: var(--gold-dark);
+  border-color: var(--gold-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--gold);
+  border: 2px solid var(--gold);
+}
+
+.btn-outline:hover {
+  background: var(--gold);
+  color: var(--white);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn-dark {
+  background: var(--charcoal);
+  color: var(--white);
+  border: 2px solid var(--charcoal);
+}
+
+.btn-dark:hover {
+  background: #444;
+  border-color: #444;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* ── Page wrapper ── */
+.page-wrapper {
+  min-height: 100vh;
+  padding-top: 80px; /* accounts for fixed navbar */
+}

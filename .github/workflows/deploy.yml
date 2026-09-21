@@ -1,0 +1,56 @@
+name: CD — Deploy to Netlify
+
+# Only deploy when code lands on main/master AND the CI job has already passed
+on:
+  workflow_run:
+    workflows: ["CI — Lint & Build"]
+    branches: ["main", "master"]
+    types:
+      - completed
+
+jobs:
+  deploy:
+    name: Deploy to Netlify
+    runs-on: ubuntu-latest
+
+    # Only proceed if the CI workflow succeeded
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      # 1. Check out the repo (Netlify CLI needs the full project context)
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Download the build artefact produced by the CI workflow
+      - name: Download build artefact
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: jewellery-website/dist
+          # Artefacts are scoped to the workflow run that uploaded them
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+
+      # 3. Set up Node (needed for Netlify CLI)
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20.x
+
+      # 4. Install Netlify CLI globally
+      - name: Install Netlify CLI
+        run: npm install -g netlify-cli@latest
+
+      # 5. Deploy to Netlify
+      #    NETLIFY_AUTH_TOKEN  → Personal access token from Netlify (User settings → OAuth)
+      #    NETLIFY_SITE_ID     → Site ID from Netlify (Site settings → General)
+      #    Both must be added as GitHub repository secrets.
+      - name: Deploy to Netlify (production)
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+        run: |
+          netlify deploy \
+            --dir=jewellery-website/dist \
+            --prod \
+            --message "Deploy from GitHub Actions — ${{ github.sha }}"

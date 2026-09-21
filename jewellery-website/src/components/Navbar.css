@@ -1,0 +1,232 @@
+/* ── Navbar ── */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: background var(--transition), box-shadow var(--transition);
+  height: 80px;
+}
+
+.navbar--transparent {
+  background: transparent;
+}
+
+.navbar--solid {
+  background: rgba(255, 255, 255, 0.97);
+  box-shadow: var(--shadow-sm);
+  backdrop-filter: blur(8px);
+}
+
+.navbar__inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+/* Logo */
+.navbar__logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+}
+
+.navbar__logo-icon {
+  color: var(--gold);
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.navbar__logo-text {
+  font-family: var(--font-serif);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--charcoal);
+  letter-spacing: 0.02em;
+}
+
+.navbar--transparent .navbar__logo-text,
+.navbar--transparent .navbar__link {
+  color: var(--white);
+}
+
+.navbar--transparent .navbar__logo-icon {
+  color: var(--gold-light);
+}
+
+.navbar__logo-text em {
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+  margin-left: 1px;
+}
+
+.navbar--transparent .navbar__logo-text em {
+  color: var(--gold-light);
+}
+
+/* Desktop links */
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.navbar__link {
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  position: relative;
+  padding-bottom: 4px;
+  transition: color var(--transition);
+}
+
+.navbar__link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background: var(--gold);
+  transition: width var(--transition);
+}
+
+.navbar__link:hover::after,
+.navbar__link--active::after {
+  width: 100%;
+}
+
+.navbar__link--active {
+  color: var(--gold);
+}
+
+.navbar--transparent .navbar__link {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.navbar--transparent .navbar__link:hover,
+.navbar--transparent .navbar__link--active {
+  color: var(--white);
+}
+
+/* Actions */
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.navbar__cta {
+  padding: 9px 22px;
+  font-size: 0.8rem;
+}
+
+.navbar--transparent .navbar__cta {
+  color: var(--white);
+  border-color: rgba(255, 255, 255, 0.7);
+}
+
+.navbar--transparent .navbar__cta:hover {
+  background: var(--white);
+  color: var(--charcoal);
+  border-color: var(--white);
+}
+
+/* Hamburger */
+.navbar__hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.navbar__hamburger span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--charcoal);
+  border-radius: 2px;
+  transition: all var(--transition);
+  transform-origin: center;
+}
+
+.navbar--transparent .navbar__hamburger span {
+  background: var(--white);
+}
+
+.navbar__hamburger--open span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.navbar__hamburger--open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.navbar__hamburger--open span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile drawer */
+.navbar__mobile {
+  display: none;
+  flex-direction: column;
+  background: var(--white);
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+}
+
+.navbar__mobile--open {
+  max-height: 300px;
+  padding: 12px 0 20px;
+}
+
+.navbar__mobile-link {
+  display: block;
+  padding: 14px 24px;
+  font-family: var(--font-sans);
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  border-left: 3px solid transparent;
+  transition: all var(--transition);
+}
+
+.navbar__mobile-link:hover,
+.navbar__mobile-link.active {
+  color: var(--gold);
+  border-left-color: var(--gold);
+  background: var(--cream);
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .navbar__links,
+  .navbar__cta {
+    display: none;
+  }
+
+  .navbar__hamburger {
+    display: flex;
+  }
+
+  .navbar__mobile {
+    display: flex;
+  }
+}
