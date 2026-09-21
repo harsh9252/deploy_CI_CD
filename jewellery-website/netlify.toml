@@ -1,11 +1,9 @@
 # ── Netlify configuration ──────────────────────────────────────────────────────
 
 [build]
-  # Directory to run the build command from
-  base    = "jewellery-website"
-  # Build command
+  # Build command (runs from the repo root; Netlify sees this file in jewellery-website/)
   command = "npm run build"
-  # Directory to publish (relative to base)
+  # Publish directory relative to this file's location
   publish = "dist"
 
 [build.environment]
